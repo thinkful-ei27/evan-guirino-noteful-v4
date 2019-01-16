@@ -3,8 +3,10 @@
 const mongoose = require('mongoose');
 
 const schema = new mongoose.Schema({
-  name: { type: String, required: true, unique: true }
+  name: { type: String, required: true }
 });
+
+schema.index({ name: 1, userId: 1}, { unique: true });
 
 // Add `createdAt` and `updatedAt` fields
 schema.set('timestamps', true);

@@ -12,7 +12,7 @@ router.use('/', passport.authenticate('jwt', { session: false, failWithError: tr
 /* ========== GET/READ ALL ITEMS ========== */
 router.get('/', (req, res, next) => {
   const { searchTerm, folderId, tagId } = req.query;
-
+  const userId = req.user.id;
   let filter = {};
 
   if (searchTerm) {
@@ -24,8 +24,13 @@ router.get('/', (req, res, next) => {
     filter.folderId = folderId;
   }
 
+
   if (tagId) {
     filter.tags = tagId;
+  }
+
+  if (userId) {
+    filter.userId = userId;
   }
 
   Note.find(filter)
