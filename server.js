@@ -30,7 +30,7 @@ app.use(express.static('public'));
 app.use(express.json());
 
 //mount passport strats
-passport.use(jwtStrategy)
+passport.use(jwtStrategy);
 passport.use(localStrategy);
 // Mount routers
 app.use('/api/notes', notesRouter);

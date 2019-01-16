@@ -112,7 +112,7 @@ const users = [
   {
     "_id": "333333333333333333333302",
     "fullname": "Slob User",
-    "username": "bobuser",
+    "username": "slobUser",
     // hash digest for the string 'password'
     "password": "$2a$10$QJCIX42iD5QMxLRgHHBJre2rH6c6nI24UysmSYtkmeFv6X8uS1kgi"
   }
