@@ -68,7 +68,7 @@ router.post("/", (req, res, next) => {
   if (tooSmall || tooLarge) {
     return res.status(422).json({
       code: 422,
-      reason: 'Validation Error',
+      reason: 'Validation error',
       message: tooSmall ? `Must be at least ${sizedFields[tooSmall].min} characters long` : `Must be at most ${sizedFields[tooLarge].max} characters long`,
       location: tooSmall || tooLarge
     });
@@ -81,6 +81,9 @@ router.post("/", (req, res, next) => {
         password: digest,
         fullname
       };
+      if(fullname) {
+        newUser.fullname = fullname.trim();
+      }
       return User.create(newUser);
     })
     .then(newUser => {
