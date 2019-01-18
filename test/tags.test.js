@@ -19,7 +19,7 @@ chai.use(chaiHttp);
 const expect = chai.expect;
 const sandbox = sinon.createSandbox();
 
-describe.only('Noteful API - Tags', function() {
+describe('Noteful API - Tags', function() {
   let user;
   let token;
 
@@ -176,7 +176,10 @@ describe.only('Noteful API - Tags', function() {
 
       return Tag.findOne()
         .then(data => {
-          return chai.request(app).get(`/api/tags/${data.id}`).set('Authorization', `Bearer ${token}`);
+          return chai
+            .request(app)
+            .get(`/api/tags/${data.id}`)
+            .set('Authorization', `Bearer ${token}`);
         })
         .then(res => {
           expect(res).to.have.status(500);
@@ -188,8 +191,6 @@ describe.only('Noteful API - Tags', function() {
   });
 
   describe('POST /api/tags', function() {
-    
-
     it('should create and return a new item when provided valid data', function() {
       const newItem = { name: 'newTag' };
       let body;
@@ -204,7 +205,13 @@ describe.only('Noteful API - Tags', function() {
           expect(res).to.have.header('location');
           expect(res).to.be.json;
           expect(body).to.be.a('object');
-          expect(body).to.have.all.keys('id', 'name', 'createdAt', 'updatedAt', 'userId');
+          expect(body).to.have.all.keys(
+            'id',
+            'name',
+            'createdAt',
+            'updatedAt',
+            'userId'
+          );
           return Tag.findOne({ _id: body.id });
         })
         .then(data => {
@@ -232,7 +239,7 @@ describe.only('Noteful API - Tags', function() {
 
     it('should return an error when "name" field is empty string', function() {
       const newItem = { name: '' };
-      
+
       return chai
         .request(app)
         .post('/api/tags')
@@ -427,7 +434,10 @@ describe.only('Noteful API - Tags', function() {
       return Tag.findOne()
         .then(_data => {
           data = _data;
-          return chai.request(app).delete(`/api/tags/${data.id}`).set('Authorization', `Bearer ${token}`);
+          return chai
+            .request(app)
+            .delete(`/api/tags/${data.id}`)
+            .set('Authorization', `Bearer ${token}`);
         })
         .then(function(res) {
           expect(res).to.have.status(204);
@@ -445,7 +455,10 @@ describe.only('Noteful API - Tags', function() {
         .then(data => {
           tagId = data.tags[0];
 
-          return chai.request(app).delete(`/api/tags/${tagId}`).set('Authorization', `Bearer ${token}`);
+          return chai
+            .request(app)
+            .delete(`/api/tags/${tagId}`)
+            .set('Authorization', `Bearer ${token}`);
         })
         .then(function(res) {
           expect(res).to.have.status(204);
@@ -472,7 +485,10 @@ describe.only('Noteful API - Tags', function() {
       sandbox.stub(express.response, 'sendStatus').throws('FakeError');
       return Tag.findOne()
         .then(data => {
-          return chai.request(app).delete(`/api/tags/${data.id}`).set('Authorization', `Bearer ${token}`);
+          return chai
+            .request(app)
+            .delete(`/api/tags/${data.id}`)
+            .set('Authorization', `Bearer ${token}`);
         })
         .then(res => {
           expect(res).to.have.status(500);
